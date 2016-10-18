@@ -11,6 +11,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
+    private int AmountOfPoints = 0;
+
+
+    public void OnTap(View view){
+        AmountOfPoints = AmountOfPoints + 1;
+
+    }
 }
 
 public void onClickChangeButton(View view){
