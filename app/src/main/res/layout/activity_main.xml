@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/pepe"
-        android:id="@+id/imageView2" 
+        android:id="@+id/pepe"
         android:contentDescription="@string/feelsbadman"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
