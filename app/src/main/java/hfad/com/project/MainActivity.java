@@ -25,9 +25,17 @@ public class MainActivity extends AppCompatActivity {
         ImageButton pepe = (ImageButton) findViewById(R.id.pepe);
         pepe.setImageResource(R.drawable.pepe2);
 
-         AmountOfPoints.toString();
-        String punten = (TextView)findViewById(R.id.DPS);
+        String AmountOfPoint = Integer.toString(AmountOfPoints);
 
+
+        TextView punten = (TextView)findViewById(R.id.dps);
+
+
+
+        punten.setText("Amount of points:  " + AmountOfPoint);
     }
+
+
+
 }
 
