@@ -21,6 +21,6 @@
         android:id="@+id/Refrences_List"
         android:title="@string/Reference_Menu"
         android:orderInCategory="100"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
 </menu>
