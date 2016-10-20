@@ -36,5 +36,12 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(Menuitem item){
+        switch (item.getItemId()){
+
+        }
+    }
 }
 
