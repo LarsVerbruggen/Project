@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Project</string>
     <string name="feelsbadman"></string>
-
+    <string name="DPS"> DPS </string>
 </resources>

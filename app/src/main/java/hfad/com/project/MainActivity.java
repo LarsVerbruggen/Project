@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
     }
 
     private int AmountOfPoints = 0;
@@ -21,6 +23,11 @@ public class MainActivity extends AppCompatActivity {
     public void OnTap(View view){
         AmountOfPoints = AmountOfPoints + 1;
         ImageButton pepe = (ImageButton) findViewById(R.id.pepe);
+        pepe.setImageResource(R.drawable.pepe2);
+
+         AmountOfPoints.toString();
+        String punten = (TextView)findViewById(R.id.DPS);
+
     }
 }
 

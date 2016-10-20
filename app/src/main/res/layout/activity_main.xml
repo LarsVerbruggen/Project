@@ -18,9 +18,17 @@
         app:srcCompat="@drawable/pepe"
         android:id="@+id/pepe"
         android:contentDescription="@string/feelsbadman"
-        android:layout_alignParentBottom="true"
+        android:onClick="OnTap"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="@string/DPS"
+        android:layout_width="wrap_content"
+        android:id="@+id/DPS"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="44dp"
-        android:layout_marginBottom="57dp"
-        android:onClick="OnTap"/>
+        android:layout_alignParentTop="true" />
+
 </RelativeLayout>
