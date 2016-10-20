@@ -26,10 +26,10 @@ public class MainActivity extends AppCompatActivity {
         ImageButton pepe = (ImageButton) findViewById(R.id.pepe);
         pepe.setImageResource(R.drawable.pepe2);
 
-       // AmountOfPoints.toString();
-       // String punten = (TextView)findViewById(R.id.DPS);
-
-    }
+        String AmountOfPoint = Integer.toString(AmountOfPoints);
+        TextView punten = (TextView)findViewById(R.id.dps);
+        punten.setText("Amount of points:  " + AmountOfPoint);
+       }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
@@ -37,11 +37,16 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+<<<<<<< HEAD
     @Override
     public boolean onOptionsItemSelected(Menuitem item){
         switch (item.getItemId()){
 
         }
     }
+=======
+
+
+>>>>>>> 7094f70e1919935752eae8926fb9fc4507713d43
 }
 
