@@ -23,12 +23,21 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:text="@string/DPS"
+        android:text="@string/PPS"
         android:layout_width="wrap_content"
-        android:id="@+id/dps"
+        android:id="@+id/pps"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/geluid_uit"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/pepe"
+        android:id="@+id/geluid"
+        android:onClick="OnGeluid"/>
 
 </RelativeLayout>

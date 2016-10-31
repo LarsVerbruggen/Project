@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Project</string>
     <string name="feelsbadman"></string>
-    <string name="DPS"> DPS </string>
+    <string name="PPS"> PPS </string>
     <string name="Home_Menu">Home</string>
     <string name="Upgrade_Menu">Upgrade</string>
     <string name="Reference_Menu">References</string>
