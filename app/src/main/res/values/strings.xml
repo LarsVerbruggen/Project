@@ -5,4 +5,6 @@
     <string name="Home_Menu">Home</string>
     <string name="Upgrade_Menu">Upgrade</string>
     <string name="Reference_Menu">References</string>
+    <string name="title_activity_upgrade">UpgradeActivity</string>
+    <string name="title_activity_reference">ReferenceActivity</string>
 </resources>
