@@ -10,4 +10,11 @@ public class UpgradeActivity extends MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upgrade);
     }
+
+
+
+
+
+
+
 }

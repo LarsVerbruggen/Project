@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         pepe.setImageResource(R.drawable.pepe2);
 
         String AmountOfPoint = Integer.toString(AmountOfPoints);
-        TextView punten = (TextView)findViewById(R.id.pps);
+        TextView punten = (TextView)findViewById(R.id.ppc);
         punten.setText("Amount of points:  " + AmountOfPoint);
         pepe.setBackgroundColor(Color.GREEN);
        }
@@ -82,12 +82,15 @@ public class MainActivity extends AppCompatActivity {
             case R.id.Home_Screen:
                 intent = new Intent(this, MainActivity.class);
                 finish();
+                break;
             case R.id.Upgrade_Screen:
                 intent = new Intent(this, UpgradeActivity.class);
                 finish();
+                break;
             case R.id.Refrences_List:
                 intent = new Intent(this, ReferenceActivity.class);
                 finish();
+                break;
         }
         startActivity(intent);
         return true;

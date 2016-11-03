@@ -23,9 +23,9 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:text="@string/PPS"
+        android:text="@string/PPC"
         android:layout_width="wrap_content"
-        android:id="@+id/pps"
+        android:id="@+id/ppc"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"

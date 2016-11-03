@@ -17,8 +17,7 @@
         </activity>
         <activity
             android:name=".UpgradeActivity"
-            android:label="@string/title_activity_upgrade"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_upgrade" />
         <activity android:name=".ReferenceActivity"></activity>
     </application>
 
