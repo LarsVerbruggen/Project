@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         ImageButton pepe = (ImageButton) findViewById(R.id.pepe);
         TextView punten = (TextView)findViewById(R.id.ppc);
 
-
         pepe.setBackgroundColor(Color.RED);
         myMusic = MediaPlayer.create(this, R.raw.giveallup);
 
