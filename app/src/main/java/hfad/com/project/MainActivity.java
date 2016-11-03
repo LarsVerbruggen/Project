@@ -1,6 +1,7 @@
 package hfad.com.project;
 
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.content.Intent;
 
@@ -20,6 +21,11 @@ import static hfad.com.project.R.layout.activity_main;
 public class MainActivity extends AppCompatActivity {
 
     MediaPlayer myMusic;
+    Intent intent;
+    private int AmountOfPoints = 0;
+
+    public static final String MY_PREFS_NAME = "FileName";
+
 
     @Override
     protected void onPause(){
@@ -35,13 +41,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(activity_main);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         ImageButton pepe = (ImageButton) findViewById(R.id.pepe);
+        TextView punten = (TextView)findViewById(R.id.ppc);
+
+
         pepe.setBackgroundColor(Color.RED);
         myMusic = MediaPlayer.create(this, R.raw.giveallup);
 
-
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        AmountOfPoints = prefs.getInt("Points" , 0);
+        punten.setText("Amount of points:  " + AmountOfPoints);
     }
 
-    private int AmountOfPoints = 0;
+
 
     public void OnGeluid(View view){
         ImageButton aan = (ImageButton) findViewById(R.id.geluid);
@@ -74,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    Intent intent;
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
@@ -94,6 +105,12 @@ public class MainActivity extends AppCompatActivity {
         }
         startActivity(intent);
         return true;
+    }
+
+    public void SaveGame(View view){
+        SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+        editor.putInt("Points", AmountOfPoints);
+        editor.apply();
     }
 
 }

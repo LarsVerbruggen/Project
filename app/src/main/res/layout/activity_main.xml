@@ -40,4 +40,14 @@
         android:id="@+id/geluid"
         android:onClick="OnGeluid"/>
 
+    <Button
+        android:text="Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ppc"
+        android:layout_toEndOf="@+id/pepe"
+        android:layout_marginTop="22dp"
+        android:id="@+id/button3"
+        android:onClick="SaveGame"/>
+
 </RelativeLayout>
