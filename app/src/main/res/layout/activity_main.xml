@@ -34,11 +34,11 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/geluid_uit"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/pepe"
+        app:srcCompat="@drawable/muziek_uit"
         android:id="@+id/geluid"
-        android:onClick="OnGeluid"/>
+        android:onClick="OnGeluid"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:text="Button"

@@ -11,10 +11,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SoundEffectConstants;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import static hfad.com.project.R.layout.activity_main;
 
@@ -31,6 +33,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause(){
         super.onPause();
         myMusic.release();
+
+
+
+
 
     }
 
@@ -55,17 +61,20 @@ public class MainActivity extends AppCompatActivity {
 
     public void OnGeluid(View view){
         ImageButton aan = (ImageButton) findViewById(R.id.geluid);
-
+        aan.setSoundEffectsEnabled(false);
         if(myMusic.isPlaying()){
             myMusic.pause();
-            aan.setImageResource(R.drawable.geluid_uit);
+            aan.setImageResource(R.drawable.muziek_uit);
         } else {
             myMusic.start();
             myMusic.setLooping(true);
-            aan.setImageResource(R.drawable.geluid_aan);
+            aan.setImageResource(R.drawable.muziek_aan);
         }
 
     }
+
+
+
 
     public void OnTap(View view){
         AmountOfPoints = AmountOfPoints + 1;
@@ -76,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         TextView punten = (TextView)findViewById(R.id.ppc);
         punten.setText("Amount of points:  " + AmountOfPoint);
         pepe.setBackgroundColor(Color.GREEN);
+        pepe.setSoundEffectsEnabled(false);
        }
 
     @Override
