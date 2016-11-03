@@ -1,0 +1,13 @@
+lvl up = 100 points base
+base * 1.3 per lvl
+
+damage = 1 base (pepe)
+per lvl is base + (base * 1)
+
+damage = 5 base (doge) per 1 sec
+lvl up = 1000 points base
+base * 1.5 per lvl
+
+damage = 10 base (seal) per 1 sec
+lvl up = 10000 points base
+base * 1.4 per lvl
