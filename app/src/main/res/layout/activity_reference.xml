@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_reference"
     android:layout_width="match_parent"
@@ -18,4 +19,61 @@
         android:layout_marginStart="58dp"
         android:layout_marginTop="30dp"
         android:id="@+id/textView" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/pepe3"
+        android:id="@+id/Pepeinfo"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:onClick="Pepeinfo"
+        />
+
+    <TextView
+        android:text="Click on the image to learn more about Pepe the frog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView"
+        android:layout_toEndOf="@+id/Pepeinfo"
+        android:id="@+id/textView3" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/doge"
+        android:layout_below="@+id/Pepeinfo"
+        android:layout_alignEnd="@+id/Pepeinfo"
+        android:layout_marginTop="38dp"
+        android:id="@+id/Dogeinfo"
+        android:onClick="Dogeinfo"/>
+
+    <TextView
+        android:text="Click on the image to learn more about Doge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/Dogeinfo"
+        android:layout_toEndOf="@+id/Dogeinfo"
+        android:layout_marginTop="22dp"
+        android:id="@+id/textView4" />
+
+    <TextView
+        android:text="Click on the image to learn more about Akward Moment Seal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/Sealinfo"
+        android:layout_toEndOf="@+id/Sealinfo"
+        android:layout_marginStart="17dp"
+        android:layout_marginBottom="24dp"
+        android:id="@+id/textView6" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/seal"
+        android:layout_marginTop="42dp"
+        android:id="@+id/Sealinfo"
+        android:layout_below="@+id/Dogeinfo"
+        android:layout_alignParentStart="true"
+        android:onClick="Sealinfo"/>
 </RelativeLayout>
