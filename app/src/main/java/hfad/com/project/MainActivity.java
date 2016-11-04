@@ -7,6 +7,7 @@ import android.content.Intent;
 
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -25,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
     MediaPlayer myMusic;
     Intent intent;
     private int AmountOfPoints = 0;
-
+    private boolean Countdown;
+    int CountTimer = 5000;
     public static final String MY_PREFS_NAME = "FileName";
 
 
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void OnGeluid(View view){
         ImageButton aan = (ImageButton) findViewById(R.id.geluid);
+        aan.setBackgroundColor(Color.WHITE);
         aan.setSoundEffectsEnabled(false);
         if(myMusic.isPlaying()){
             myMusic.pause();
@@ -73,32 +76,57 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-
-
-    public void OnTap(View view){
+    public void OnTap(View view) {
         AmountOfPoints = AmountOfPoints + 1;
         ImageButton pepe = (ImageButton) findViewById(R.id.pepe);
         pepe.setImageResource(R.drawable.pepe2);
 
         String AmountOfPoint = Integer.toString(AmountOfPoints);
-        TextView punten = (TextView)findViewById(R.id.ppc);
+        TextView punten = (TextView) findViewById(R.id.ppc);
         punten.setText("Amount of points:  " + AmountOfPoint);
         pepe.setBackgroundColor(Color.GREEN);
         pepe.setSoundEffectsEnabled(false);
-       }
+
+
+
+
+        if(Countdown == false){
+            CountDownTimer cdt;
+            cdt = new CountDownTimer(CountTimer, 1000) {
+
+                public void onTick(long millisUntilFinished){
+
+                    Countdown = true;
+
+                    ImageButton pepe = (ImageButton) findViewById(R.id.pepe);
+                    pepe.setImageResource(R.drawable.pepe2);
+                    pepe.setBackgroundColor(Color.GREEN);
+                }
+                public void onFinish() {
+                    Countdown = false;
+                    ImageButton pepe = (ImageButton) findViewById(R.id.pepe);
+                    pepe.setImageResource(R.drawable.pepe);
+                    pepe.setBackgroundColor(Color.RED);
+                }
+            };
+            cdt.cancel();
+            cdt.start();
+        }
+
+
+    }
+
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
 
-
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch (item.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.Home_Screen:
                 intent = new Intent(this, MainActivity.class);
                 finish();
@@ -116,11 +144,11 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public void SaveGame(View view){
+    public void SaveGame(View view) {
         SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
         editor.putInt("Points", AmountOfPoints);
         editor.apply();
     }
 
-}
 
+}
