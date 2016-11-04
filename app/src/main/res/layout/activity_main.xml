@@ -20,7 +20,8 @@
         android:contentDescription="@string/feelsbadman"
         android:onClick="OnTap"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="@android:color/transparent" />
 
     <TextView
         android:text="@string/PPC"
@@ -38,7 +39,8 @@
         android:id="@+id/geluid"
         android:onClick="OnGeluid"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:backgroundTint="@android:color/background_light" />
 
     <Button
         android:text="Button"

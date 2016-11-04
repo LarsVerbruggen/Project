@@ -28,7 +28,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:onClick="Pepeinfo"
-        />
+        android:backgroundTint="@android:color/background_light" />
 
     <TextView
         android:text="Click on the image to learn more about Pepe the frog"
@@ -46,7 +46,8 @@
         android:layout_alignEnd="@+id/Pepeinfo"
         android:layout_marginTop="38dp"
         android:id="@+id/Dogeinfo"
-        android:onClick="Dogeinfo"/>
+        android:onClick="Dogeinfo"
+        android:backgroundTint="@android:color/background_light" />
 
     <TextView
         android:text="Click on the image to learn more about Doge"
@@ -75,5 +76,6 @@
         android:id="@+id/Sealinfo"
         android:layout_below="@+id/Dogeinfo"
         android:layout_alignParentStart="true"
-        android:onClick="Sealinfo"/>
+        android:onClick="Sealinfo"
+        android:backgroundTint="@android:color/background_light" />
 </RelativeLayout>
