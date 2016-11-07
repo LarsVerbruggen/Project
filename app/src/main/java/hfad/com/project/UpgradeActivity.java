@@ -61,9 +61,21 @@ public class UpgradeActivity extends MainActivity {
         @Override
         public void run() {
             try{
-                
+                Button pepeButton = (Button) findViewById(R.id.pepeLevelButton);
+                Button dogeButton = (Button) findViewById(R.id.dogeLevelButton);
+                if(AmountOfPoints < pepeCost){
+                    pepeButton.setEnabled(false);
+                }else{
+                    pepeButton.setEnabled(true);
+                }
+
+           //     if(AmountOfPoints < dogeCost){
+           //         dogeButton.setEnabled(false);
+           //     }else{
+           //         dogeButton.setEnabled(true);
+           //     }
             } finally {
-                mHandler.postDelayed(mStatusChecker, 1000);
+                mHandler.postDelayed(mStatusChecker, 10);
             }
         }
     };
