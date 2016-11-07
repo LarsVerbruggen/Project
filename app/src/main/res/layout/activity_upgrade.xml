@@ -18,14 +18,14 @@
         app:srcCompat="@drawable/pepe3"
         android:layout_marginStart="10dp"
         android:id="@+id/imageView2"
-        android:layout_alignTop="@+id/button"
-        android:layout_toEndOf="@+id/button" />
+        android:layout_alignTop="@+id/pepeLevelButton"
+        android:layout_toEndOf="@+id/pepeLevelButton" />
 
     <Button
         android:text="Level up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button2"
+        android:id="@+id/dogeLevelButton"
         android:backgroundTint="@android:color/holo_orange_light"
         android:textColor="@android:color/background_light"
         android:layout_marginTop="33dp"
@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/doge"
-        android:layout_alignBottom="@+id/button2"
+        android:layout_alignBottom="@+id/dogeLevelButton"
         android:layout_alignStart="@+id/imageView2"
         android:id="@+id/imageView" />
 
@@ -57,7 +57,7 @@
         android:layout_marginTop="39dp"
         android:id="@+id/button4"
         android:onClick="sealLevelUp"
-        android:layout_below="@+id/button2"
+        android:layout_below="@+id/dogeLevelButton"
         android:layout_alignParentStart="true"
         android:backgroundTint="@android:color/holo_orange_light"
         android:textColor="@android:color/background_light" />
@@ -110,7 +110,7 @@
         android:text="Level up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button"
+        android:id="@+id/pepeLevelButton"
         android:backgroundTint="@android:color/holo_orange_light"
         android:textColor="@android:color/background_light"
         android:layout_marginTop="11dp"
@@ -149,8 +149,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/Clickpunten"
-        android:layout_alignBaseline="@+id/button"
-        android:layout_alignBottom="@+id/button"
+        android:layout_alignBaseline="@+id/pepeLevelButton"
+        android:layout_alignBottom="@+id/pepeLevelButton"
         android:layout_toEndOf="@+id/pepeLevel"
         android:layout_marginStart="71dp" />
 
