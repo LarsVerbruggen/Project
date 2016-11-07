@@ -161,7 +161,9 @@ public class UpgradeActivity extends MainActivity {
             SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
 
             try{
-                AmountOfPoints = AmountOfPoints + (dogeLevel * (dogeLevel * 1.1));
+                double dogePoints = dogeLevel * (dogeLevel * 1.1);
+                AmountOfPoints = AmountOfPoints + dogePoints;
+                editor.putInt("dogePoints", 0);
                 editor.putInt("dogeLevel", dogeLevel);
                 editor.apply();
                 TextView punten = (TextView)findViewById(R.id.punten);

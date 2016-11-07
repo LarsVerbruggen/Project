@@ -7,6 +7,7 @@ import android.content.Intent;
 
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -24,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private int pepeLevel = 1;
     private boolean Countdown;
 
+    private int dogeInterval = 5000;
+    private Handler dogeHandler;
 
     public static final String MY_PREFS_NAME = "FileName";
 
@@ -48,10 +51,59 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         AmountOfPoints = prefs.getInt("Points" , 0);
         pepeLevel = prefs.getInt("pepeLevel" , 1);
-        punten.setText("Amount of points:  " + AmountOfPoints);
+        punten.setText(AmountOfPoints);
 
+
+
+
+        dogeHandler = new Handler();
+        dogestartRepeatingTask();
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+
+        dogestopRepeatingTask();
+    }
+
+
+    Runnable dogeStatusChecker = new Runnable() {
+        @Override
+        public void run() {
+            SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+
+            try{
+                int dogePoints = prefs.getInt("dogePoints", 0);
+                int dogeAmountOfPoints = (AmountOfPoints);
+                AmountOfPoints = AmountOfPoints + dogePoints;
+
+
+                TextView punten = (TextView)findViewById(R.id.punten);
+                String dogeAmountOfPoint = Integer.toString(dogeAmountOfPoints);
+                punten.setText("Amount of points:  " + dogeAmountOfPoint);
+            }
+
+            finally {
+                dogeHandler.postDelayed(dogeStatusChecker, 1000);
+            }
+        }
+    };
+
+
+
+
+
+    void dogestartRepeatingTask(){
+        dogeStatusChecker.run();
+    }
+
+    void dogestopRepeatingTask(){
+        dogeHandler.removeCallbacks(dogeStatusChecker);
 
     }
+
+
 
     public void OnGeluid(View view){
         ImageButton aan = (ImageButton) findViewById(R.id.geluid);
