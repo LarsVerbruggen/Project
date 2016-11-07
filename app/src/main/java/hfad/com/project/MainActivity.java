@@ -28,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
     private int dogeInterval = 5000;
     private Handler dogeHandler;
 
+    private int sealInterval = 5000;
+    private Handler sealHandler;
+
+
     public static final String MY_PREFS_NAME = "FileName";
 
     @Override
@@ -54,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
         punten.setText(AmountOfPoints);
 
 
-
+        sealHandler = new Handler();
+        sealstartRepeatingTask();
 
         dogeHandler = new Handler();
         dogestartRepeatingTask();
@@ -63,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onDestroy(){
         super.onDestroy();
-
+        sealstopRepeatingTask();
         dogestopRepeatingTask();
     }
 
@@ -78,10 +83,10 @@ public class MainActivity extends AppCompatActivity {
                 int dogeAmountOfPoints = (AmountOfPoints);
                 AmountOfPoints = AmountOfPoints + dogePoints;
 
-
+                String points = "Amount of points: ";
                 TextView punten = (TextView)findViewById(R.id.punten);
                 String dogeAmountOfPoint = Integer.toString(dogeAmountOfPoints);
-                punten.setText("Amount of points:  " + dogeAmountOfPoint);
+                punten.setText(points + dogeAmountOfPoint);
             }
 
             finally {
@@ -103,7 +108,36 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    Runnable sealStatusChecker = new Runnable() {
+        @Override
+        public void run() {
+            SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
 
+            try{
+                int sealPoints = prefs.getInt("sealPoints", 0);
+                int sealAmountOfPoints = (AmountOfPoints);
+                AmountOfPoints = AmountOfPoints + sealPoints;
+
+                String points = "Amount of points: ";
+                TextView punten = (TextView)findViewById(R.id.punten);
+                String sealAmountOfPoint = Integer.toString(sealAmountOfPoints);
+                punten.setText(points + sealAmountOfPoint);
+            }
+
+            finally {
+                sealHandler.postDelayed(sealStatusChecker, 1000);
+            }
+        }
+    };
+
+    void sealstartRepeatingTask(){
+        sealStatusChecker.run();
+    }
+
+    void sealstopRepeatingTask(){
+        sealHandler.removeCallbacks(sealStatusChecker);
+
+    }
 
     public void OnGeluid(View view){
         ImageButton aan = (ImageButton) findViewById(R.id.geluid);
