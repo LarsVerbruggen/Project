@@ -18,7 +18,6 @@ public class UpgradeActivity extends MainActivity {
     private int dogeInterval = 5000;
     private Handler dogeHandler;
 
-
     private int mInterval = 5000;
     private Handler mHandler;
 
@@ -93,16 +92,11 @@ public class UpgradeActivity extends MainActivity {
                     pepeButton.setEnabled(true);
                 }
 
-                if(AmountOfPoints < dogeCost){
+                if(AmountOfPoints <= dogeCost){
                     dogeButton.setEnabled(false);
                 }else{
                     dogeButton.setEnabled(true);
                 }
-           //     if(AmountOfPoints <= dogeCost){
-           //         dogeButton.setEnabled(false);
-           //     }else{
-           //         dogeButton.setEnabled(true);
-           //     }
 
                 int PointInteger = (int)(AmountOfPoints + 0.5d);
                 editor.putInt("Points", PointInteger);
@@ -113,8 +107,6 @@ public class UpgradeActivity extends MainActivity {
             }
         }
     };
-
-
 
     void startRepeatingTask(){
         mStatusChecker.run();
@@ -142,18 +134,13 @@ public class UpgradeActivity extends MainActivity {
         pepepoints.setText(pepeCostString);
         punten.setText("Amount of points : " + AmountOfPoint);
 
-
         int pepeCostInteger = (int)(pepeCost + 0.5d);
-
 
         SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
         editor.putInt("pepeLevel", pepeLevel);
         editor.putInt("pepeCost", pepeCostInteger);
         editor.apply();
-
     }
-
-
 
     Runnable dogeStatusChecker = new Runnable() {
         @Override
@@ -166,7 +153,7 @@ public class UpgradeActivity extends MainActivity {
                 editor.apply();
                 TextView punten = (TextView)findViewById(R.id.punten);
                 String AmountOfPoint = Integer.toString((int)AmountOfPoints);
-                punten.setText(AmountOfPoint);
+                punten.setText("Amount of points : " + AmountOfPoint);
             }
 
             finally {
@@ -174,10 +161,6 @@ public class UpgradeActivity extends MainActivity {
             }
         }
     };
-
-
-
-
 
     void dogestartRepeatingTask(){
         dogeStatusChecker.run();
@@ -189,10 +172,9 @@ public class UpgradeActivity extends MainActivity {
     }
 
     public void dogeLevelUp(View view){
+        AmountOfPoints = AmountOfPoints - dogeCost;
         dogeLevel = dogeLevel + 1;
         dogeCost = 1000 * (dogeLevel * 2.1);
-        AmountOfPoints = AmountOfPoints - dogeCost;
-
 
         TextView dogepoints = (TextView) findViewById(R.id.dogepoints);
         TextView punten = (TextView)findViewById(R.id.punten);
@@ -203,7 +185,7 @@ public class UpgradeActivity extends MainActivity {
         String dogeLevelString = Integer.toString(dogeLevel);
 
         dogepoints.setText(dogeCostString);
-        punten.setText(AmountOfPoint);
+        punten.setText("Amount of points : " + AmountOfPoint);
         dogeLevelText.setText("Level : " + dogeLevelString);
 
         int dogeCostInteger = (int)(dogeCost + 0.5d);
