@@ -12,16 +12,13 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class UpgradeActivity extends MainActivity {
-    boolean isCounterRunning  = false;
     public static final String MY_PREFS_NAME = "FileName";
     private double pepeCost;
 
-    private int mInterval = 5000;
     private Handler mHandler;
 
     private double AmountOfPoints;
     private int pepeLevel;
-    CountDownTimer mCountDownTimer;
 
     private double dogeCost;
 
@@ -32,12 +29,9 @@ public class UpgradeActivity extends MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upgrade);
 
-
         TextView punten = (TextView)findViewById(R.id.punten);
         TextView pepeLevelText = (TextView) findViewById(R.id.pepeLevel);
         TextView pepePoints = (TextView) findViewById(R.id.pepepoints);
-
-
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         AmountOfPoints = prefs.getInt("Points" , 0);
@@ -51,7 +45,6 @@ public class UpgradeActivity extends MainActivity {
         pepeLevelText.setText("Level : " + pepeLevelString);
         pepePoints.setText(pepeCostString);
 
-
         TextView dogeLevelText = (TextView) findViewById(R.id.dogeLevel);
         TextView dogePoints = (TextView) findViewById(R.id.dogepoints);
 
@@ -62,9 +55,6 @@ public class UpgradeActivity extends MainActivity {
         String dogeLevelString = Integer.toString(dogeLevel);
         dogeLevelText.setText("Level : " + dogeLevelString);
         dogePoints.setText(dogeCostString);
-
-
-
 
         mHandler = new Handler();
         startRepeatingTask();
@@ -158,5 +148,4 @@ public class UpgradeActivity extends MainActivity {
         editor.apply();
 
     }
-
 }
