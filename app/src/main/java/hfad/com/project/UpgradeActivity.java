@@ -12,7 +12,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class UpgradeActivity extends MainActivity {
-    boolean isCounterRunning  = false;
     public static final String MY_PREFS_NAME = "FileName";
     private double pepeCost;
 
@@ -25,7 +24,6 @@ public class UpgradeActivity extends MainActivity {
 
     private double AmountOfPoints;
     private int pepeLevel;
-    CountDownTimer mCountDownTimer;
 
     private double dogeCost;
 
@@ -36,25 +34,21 @@ public class UpgradeActivity extends MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upgrade);
 
-
         TextView punten = (TextView)findViewById(R.id.punten);
         TextView pepeLevelText = (TextView) findViewById(R.id.pepeLevel);
         TextView pepePoints = (TextView) findViewById(R.id.pepepoints);
 
-
-
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         AmountOfPoints = prefs.getInt("Points" , 0);
         pepeLevel = prefs.getInt("pepeLevel" , 0);
-        pepeCost = prefs.getInt("pepeCost", 0);
+        pepeCost = prefs.getInt("pepeCost", 100);
         String pepeCostString = Integer.toString((int)pepeCost);
 
         String pepeLevelString = Integer.toString(pepeLevel);
         final String AmountOfPoint = Integer.toString((int)AmountOfPoints);
-        punten.setText("Amount of points:  " + AmountOfPoint);
+        punten.setText("Amount of points : " + AmountOfPoint);
         pepeLevelText.setText("Level : " + pepeLevelString);
         pepePoints.setText(pepeCostString);
-
 
         TextView dogeLevelText = (TextView) findViewById(R.id.dogeLevel);
         TextView dogePoints = (TextView) findViewById(R.id.dogepoints);
@@ -88,7 +82,12 @@ public class UpgradeActivity extends MainActivity {
             try{
                 Button pepeButton = (Button) findViewById(R.id.pepeLevelButton);
                 Button dogeButton = (Button) findViewById(R.id.dogeLevelButton);
-                if(AmountOfPoints < pepeCost){
+
+                SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+                SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+
+                pepeCost = prefs.getInt("pepeCost", 100);
+                if(AmountOfPoints - pepeCost <= 0){
                     pepeButton.setEnabled(false);
                 }else{
                     pepeButton.setEnabled(true);
@@ -99,6 +98,16 @@ public class UpgradeActivity extends MainActivity {
                 }else{
                     dogeButton.setEnabled(true);
                 }
+           //     if(AmountOfPoints <= dogeCost){
+           //         dogeButton.setEnabled(false);
+           //     }else{
+           //         dogeButton.setEnabled(true);
+           //     }
+
+                int PointInteger = (int)(AmountOfPoints + 0.5d);
+                editor.putInt("Points", PointInteger);
+                editor.apply();
+
             } finally {
                 mHandler.postDelayed(mStatusChecker, 10);
             }
@@ -117,9 +126,9 @@ public class UpgradeActivity extends MainActivity {
     }
 
     public void pepeLevelUp(View view){
-        pepeCost = 100 * (pepeLevel * 1.3);
         AmountOfPoints = AmountOfPoints - pepeCost;
         pepeLevel = pepeLevel + 1;
+        pepeCost = 100 * (pepeLevel * 1.3);
 
         TextView pepepoints = (TextView) findViewById(R.id.pepepoints);
         TextView punten = (TextView)findViewById(R.id.punten);
@@ -129,16 +138,19 @@ public class UpgradeActivity extends MainActivity {
         String pepeCostString = Integer.toString((int)pepeCost);
         String pepeLevelString = Integer.toString(pepeLevel);
 
-        pepepoints.setText(pepeCostString);
-        punten.setText(AmountOfPoint);
         pepeLevelText.setText("Level : " + pepeLevelString);
+        pepepoints.setText(pepeCostString);
+        punten.setText("Amount of points : " + AmountOfPoint);
+
 
         int pepeCostInteger = (int)(pepeCost + 0.5d);
+
 
         SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
         editor.putInt("pepeLevel", pepeLevel);
         editor.putInt("pepeCost", pepeCostInteger);
         editor.apply();
+
     }
 
 
@@ -202,5 +214,4 @@ public class UpgradeActivity extends MainActivity {
         editor.apply();
 
     }
-
 }
