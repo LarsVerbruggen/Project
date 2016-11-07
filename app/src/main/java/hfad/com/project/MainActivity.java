@@ -22,16 +22,12 @@ import android.widget.ToggleButton;
 import static hfad.com.project.R.layout.activity_main;
 
 public class MainActivity extends AppCompatActivity {
-
     MediaPlayer myMusic;
     Intent intent;
     private int AmountOfPoints = 0;
     private int pepeLevel = 1;
     private boolean Countdown;
 
-    int CountTimer = 5000;
-    private boolean Countingdoge;
-    int CountTimerdoge = 10000;
 
     public static final String MY_PREFS_NAME = "FileName";
 
@@ -55,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         AmountOfPoints = prefs.getInt("Points" , 0);
-        pepeLevel = prefs.getInt("pepeLevel" , 0);
+        pepeLevel = prefs.getInt("pepeLevel" , 1);
         punten.setText("Amount of points:  " + AmountOfPoints);
 
 

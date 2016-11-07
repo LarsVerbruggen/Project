@@ -16,6 +16,10 @@ public class UpgradeActivity extends MainActivity {
     public static final String MY_PREFS_NAME = "FileName";
     private double pepeCost;
 
+    private int dogeInterval = 5000;
+    private Handler dogeHandler;
+
+
     private int mInterval = 5000;
     private Handler mHandler;
 
@@ -64,7 +68,8 @@ public class UpgradeActivity extends MainActivity {
         dogePoints.setText(dogeCostString);
 
 
-
+        dogeHandler = new Handler();
+        dogestartRepeatingTask();
 
         mHandler = new Handler();
         startRepeatingTask();
@@ -74,6 +79,7 @@ public class UpgradeActivity extends MainActivity {
     public void onDestroy(){
         super.onDestroy();
         stopRepeatingTask();
+        dogestopRepeatingTask();
     }
 
     Runnable mStatusChecker = new Runnable() {
@@ -88,16 +94,18 @@ public class UpgradeActivity extends MainActivity {
                     pepeButton.setEnabled(true);
                 }
 
-           //     if(AmountOfPoints < dogeCost){
-           //         dogeButton.setEnabled(false);
-           //     }else{
-           //         dogeButton.setEnabled(true);
-           //     }
+                if(AmountOfPoints < dogeCost){
+                    dogeButton.setEnabled(false);
+                }else{
+                    dogeButton.setEnabled(true);
+                }
             } finally {
                 mHandler.postDelayed(mStatusChecker, 10);
             }
         }
     };
+
+
 
     void startRepeatingTask(){
         mStatusChecker.run();
@@ -133,10 +141,46 @@ public class UpgradeActivity extends MainActivity {
         editor.apply();
     }
 
+
+
+    Runnable dogeStatusChecker = new Runnable() {
+        @Override
+        public void run() {
+            SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+
+            try{
+                AmountOfPoints = AmountOfPoints + (dogeLevel * (dogeLevel * 1.1));
+                editor.putInt("dogeLevel", dogeLevel);
+                editor.apply();
+                TextView punten = (TextView)findViewById(R.id.punten);
+                String AmountOfPoint = Integer.toString((int)AmountOfPoints);
+                punten.setText(AmountOfPoint);
+            }
+
+            finally {
+                dogeHandler.postDelayed(dogeStatusChecker, 1000);
+            }
+        }
+    };
+
+
+
+
+
+    void dogestartRepeatingTask(){
+        dogeStatusChecker.run();
+    }
+
+    void dogestopRepeatingTask(){
+        dogeHandler.removeCallbacks(dogeStatusChecker);
+
+    }
+
     public void dogeLevelUp(View view){
-        dogeCost = 1000 * (dogeLevel * 1.5);
-        AmountOfPoints = AmountOfPoints - dogeCost;
         dogeLevel = dogeLevel + 1;
+        dogeCost = 1000 * (dogeLevel * 2.1);
+        AmountOfPoints = AmountOfPoints - dogeCost;
+
 
         TextView dogepoints = (TextView) findViewById(R.id.dogepoints);
         TextView punten = (TextView)findViewById(R.id.punten);
