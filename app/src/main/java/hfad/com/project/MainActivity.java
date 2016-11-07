@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private int pepeLevel = 1;
     private boolean Countdown;
     int CountTimer = 5000;
+    private boolean Countingdoge;
+    int CountTimerdoge = 10000;
     public static final String MY_PREFS_NAME = "FileName";
 
 
@@ -55,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
         AmountOfPoints = prefs.getInt("Points" , 0);
         pepeLevel = prefs.getInt("pepeLevel" , 0);
         punten.setText("Amount of points:  " + AmountOfPoints);
+
+
     }
 
 
@@ -75,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void OnTap(View view) {
-        AmountOfPoints = AmountOfPoints + 1;
+        AmountOfPoints = AmountOfPoints + pepeLevel;
         ImageButton pepe = (ImageButton) findViewById(R.id.pepe);
         pepe.setImageResource(R.drawable.pepe2);
 
@@ -147,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
         editor.putInt("Points", AmountOfPoints);
         editor.apply();
     }
+
 
 
 }

@@ -16,6 +16,10 @@ public class UpgradeActivity extends MainActivity {
     private double AmountOfPoints;
     private int pepeLevel;
 
+    private double dogeCost;
+
+    private int dogeLevel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +40,20 @@ public class UpgradeActivity extends MainActivity {
         punten.setText("Amount of points:  " + AmountOfPoint);
         pepeLevelText.setText("Level : " + pepeLevelString);
         pepePoints.setText(pepeCostString);
+
+        TextView dogeLevelText = (TextView) findViewById(R.id.dogeLevel);
+        TextView dogePoints = (TextView) findViewById(R.id.dogepoints);
+
+        dogeLevel = prefs.getInt("dogeLevel", 0);
+        dogeCost = prefs.getInt("dogeCost", 0);
+        String dogeCostString = Integer.toString((int)dogeCost);
+
+        String dogeLevelString = Integer.toString(dogeLevel);
+        dogeLevelText.setText("Level : " + dogeLevelString);
+        dogePoints.setText(dogeCostString);
+
+
+
     }
 
     public void pepeLevelUp(View view){
@@ -62,4 +80,31 @@ public class UpgradeActivity extends MainActivity {
         editor.putInt("pepeCost", pepeCostInteger);
         editor.apply();
     }
+
+    public void dogeLevelUp(View view){
+        dogeCost = 1000 * (dogeLevel * 1.5);
+        AmountOfPoints = AmountOfPoints - dogeCost;
+        dogeLevel = dogeLevel + 1;
+
+        TextView dogepoints = (TextView) findViewById(R.id.dogepoints);
+        TextView punten = (TextView)findViewById(R.id.punten);
+        TextView dogeLevelText = (TextView) findViewById(R.id.dogeLevel);
+
+        String AmountOfPoint = Integer.toString((int)AmountOfPoints);
+        String dogeCostString = Integer.toString((int)dogeCost);
+        String dogeLevelString = Integer.toString(dogeLevel);
+
+        dogepoints.setText(dogeCostString);
+        punten.setText(AmountOfPoint);
+        dogeLevelText.setText("Level : " + dogeLevelString);
+
+        int dogeCostInteger = (int)(dogeCost + 0.5d);
+
+        SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+        editor.putInt("dogeLevel", dogeLevel);
+        editor.putInt("dogeCost", dogeCostInteger);
+        editor.apply();
+
+    }
+
 }
