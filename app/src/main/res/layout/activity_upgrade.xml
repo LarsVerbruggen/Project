@@ -18,8 +18,8 @@
         app:srcCompat="@drawable/pepe3"
         android:layout_marginStart="10dp"
         android:id="@+id/imageView2"
-        android:layout_alignTop="@+id/button"
-        android:layout_toEndOf="@+id/button" />
+        android:layout_alignTop="@+id/pepeLevelButton"
+        android:layout_toEndOf="@+id/pepeLevelButton" />
 
     <Button
         android:text="Level up"
@@ -110,7 +110,7 @@
         android:text="Level up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button"
+        android:id="@+id/pepeLevelButton"
         android:backgroundTint="@android:color/holo_orange_light"
         android:textColor="@android:color/background_light"
         android:layout_marginTop="11dp"
@@ -149,8 +149,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/Clickpunten"
-        android:layout_alignBaseline="@+id/button"
-        android:layout_alignBottom="@+id/button"
+        android:layout_alignBaseline="@+id/pepeLevelButton"
+        android:layout_alignBottom="@+id/pepeLevelButton"
         android:layout_toEndOf="@+id/pepeLevel"
         android:layout_marginStart="71dp" />
 

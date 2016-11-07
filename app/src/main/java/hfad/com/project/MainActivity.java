@@ -28,9 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private int AmountOfPoints = 0;
     private int pepeLevel = 1;
     private boolean Countdown;
-    int CountTimer = 5000;
     public static final String MY_PREFS_NAME = "FileName";
-
 
     @Override
     protected void onPause(){
@@ -38,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         myMusic.release();
 
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
         punten.setText("Amount of points:  " + AmountOfPoints);
     }
 
-
-
     public void OnGeluid(View view){
         ImageButton aan = (ImageButton) findViewById(R.id.geluid);
         aan.setBackgroundColor(Color.WHITE);
@@ -71,11 +66,10 @@ public class MainActivity extends AppCompatActivity {
             myMusic.setLooping(true);
             aan.setImageResource(R.drawable.muziek_aan);
         }
-
     }
 
     public void OnTap(View view) {
-        AmountOfPoints = AmountOfPoints + 1;
+        AmountOfPoints = AmountOfPoints + pepeLevel;
         ImageButton pepe = (ImageButton) findViewById(R.id.pepe);
         pepe.setImageResource(R.drawable.pepe2);
 
@@ -85,17 +79,12 @@ public class MainActivity extends AppCompatActivity {
         pepe.setBackgroundColor(Color.GREEN);
         pepe.setSoundEffectsEnabled(false);
 
-
-
-
         if(Countdown == false){
             CountDownTimer cdt;
-            cdt = new CountDownTimer(CountTimer, 1000) {
+            cdt = new CountDownTimer(5000, 1000) {
 
                 public void onTick(long millisUntilFinished){
-
                     Countdown = true;
-
                     ImageButton pepe = (ImageButton) findViewById(R.id.pepe);
                     pepe.setImageResource(R.drawable.pepe2);
                     pepe.setBackgroundColor(Color.GREEN);
@@ -110,17 +99,13 @@ public class MainActivity extends AppCompatActivity {
             cdt.cancel();
             cdt.start();
         }
-
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -147,6 +132,4 @@ public class MainActivity extends AppCompatActivity {
         editor.putInt("Points", AmountOfPoints);
         editor.apply();
     }
-
-
 }

@@ -1,29 +1,39 @@
 package hfad.com.project;
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 public class UpgradeActivity extends MainActivity {
-
+    boolean isCounterRunning  = false;
     public static final String MY_PREFS_NAME = "FileName";
     private double pepeCost;
 
+    private int mInterval = 5000;
+    private Handler mHandler;
+
     private double AmountOfPoints;
     private int pepeLevel;
+    CountDownTimer mCountDownTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upgrade);
 
+
         TextView punten = (TextView)findViewById(R.id.punten);
         TextView pepeLevelText = (TextView) findViewById(R.id.pepeLevel);
         TextView pepePoints = (TextView) findViewById(R.id.pepepoints);
+
+
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         AmountOfPoints = prefs.getInt("Points" , 0);
@@ -32,10 +42,38 @@ public class UpgradeActivity extends MainActivity {
         String pepeCostString = Integer.toString((int)pepeCost);
 
         String pepeLevelString = Integer.toString(pepeLevel);
-        String AmountOfPoint = Integer.toString((int)AmountOfPoints);
+        final String AmountOfPoint = Integer.toString((int)AmountOfPoints);
         punten.setText("Amount of points:  " + AmountOfPoint);
         pepeLevelText.setText("Level : " + pepeLevelString);
         pepePoints.setText(pepeCostString);
+
+        mHandler = new Handler();
+        startRepeatingTask();
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        stopRepeatingTask();
+    }
+
+    Runnable mStatusChecker = new Runnable() {
+        @Override
+        public void run() {
+            try{
+                
+            } finally {
+                mHandler.postDelayed(mStatusChecker, 1000);
+            }
+        }
+    };
+
+    void startRepeatingTask(){
+        mStatusChecker.run();
+    }
+
+    void stopRepeatingTask(){
+        mHandler.removeCallbacks(mStatusChecker);
     }
 
     public void pepeLevelUp(View view){
