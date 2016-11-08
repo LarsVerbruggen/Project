@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private Handler dogeHandler;
 
     private Handler gameSave;
+    
+    private Handler sealHandler;
 
     public static final String MY_PREFS_NAME = "FileName";
 
@@ -54,9 +56,14 @@ public class MainActivity extends AppCompatActivity {
         AmountOfPoints = prefs.getInt("Points" , 0);
         pepeLevel = prefs.getInt("pepeLevel" , 1);
 
+        punten.setText("Amount of points : " + AmountOfPoints);
+
+
         String AmountOfPoint = Integer.toString(AmountOfPoints);
 
         punten.setText(AmountOfPoint);
+        sealHandler = new Handler();
+        sealstartRepeatingTask();
 
         dogeHandler = new Handler();
         dogestartRepeatingTask();
@@ -68,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onDestroy(){
         super.onDestroy();
+        sealstopRepeatingTask();
         dogestopRepeatingTask();
         saveGameRepeatingTaskStop();
     }
@@ -83,10 +91,11 @@ public class MainActivity extends AppCompatActivity {
                 dogeAmountOfPoints = AmountOfPoints;
                 AmountOfPoints = AmountOfPoints + dogePoints;
 
-
+                String points = "Amount of points: ";
                 TextView punten = (TextView)findViewById(R.id.punten);
                 String dogeAmountOfPoint = Integer.toString(dogeAmountOfPoints);
                 punten.setText("Amount of points: " + dogeAmountOfPoint);
+                punten.setText(points + dogeAmountOfPoint);
             }
 
             finally {
@@ -127,7 +136,36 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    Runnable sealStatusChecker = new Runnable() {
+        @Override
+        public void run() {
+            SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
 
+            try{
+                int sealPoints = prefs.getInt("sealPoints", 0);
+                int sealAmountOfPoints = (AmountOfPoints);
+                AmountOfPoints = AmountOfPoints + sealPoints;
+
+                String points = "Amount of points: ";
+                TextView punten = (TextView)findViewById(R.id.punten);
+                String sealAmountOfPoint = Integer.toString(sealAmountOfPoints);
+                punten.setText(points + sealAmountOfPoint);
+            }
+
+            finally {
+                sealHandler.postDelayed(sealStatusChecker, 1000);
+            }
+        }
+    };
+
+    void sealstartRepeatingTask(){
+        sealStatusChecker.run();
+    }
+
+    void sealstopRepeatingTask(){
+        sealHandler.removeCallbacks(sealStatusChecker);
+
+    }
 
     public void OnGeluid(View view){
         ImageButton aan = (ImageButton) findViewById(R.id.geluid);
