@@ -167,7 +167,7 @@ public class UpgradeActivity extends MainActivity {
 
         pepeLevelText.setText("Level : " + pepeLevelString);
         pepepoints.setText(pepeCostString);
-        punten.setText("Amount of points : " + AmountOfPoint);
+        punten.setText(AmountOfPoint);
 
 
         int pepeCostInteger = (int)(pepeCost + 0.5d);

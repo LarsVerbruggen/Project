@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         AmountOfPoints = prefs.getInt("Points" , 0);
         pepeLevel = prefs.getInt("pepeLevel" , 1);
-        punten.setText(AmountOfPoints);
+        punten.setText("Amount of points : " + AmountOfPoints);
 
 
         sealHandler = new Handler();
