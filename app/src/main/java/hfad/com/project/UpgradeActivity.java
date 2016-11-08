@@ -15,6 +15,11 @@ public class UpgradeActivity extends MainActivity {
     public static final String MY_PREFS_NAME = "FileName";
     private double pepeCost;
 
+    private int sealInterval = 5000;
+    private Handler sealHandler;
+    private double sealCost;
+    private int sealLevel;
+
     private int dogeInterval = 5000;
     private Handler dogeHandler;
 
@@ -48,7 +53,7 @@ public class UpgradeActivity extends MainActivity {
         punten.setText("Amount of points : " + AmountOfPoint);
         pepeLevelText.setText("Level : " + pepeLevelString);
         pepePoints.setText(pepeCostString);
-
+//
         TextView dogeLevelText = (TextView) findViewById(R.id.dogeLevel);
         TextView dogePoints = (TextView) findViewById(R.id.dogepoints);
 
@@ -59,7 +64,19 @@ public class UpgradeActivity extends MainActivity {
         String dogeLevelString = Integer.toString(dogeLevel);
         dogeLevelText.setText("Level : " + dogeLevelString);
         dogePoints.setText(dogeCostString);
+//
+        TextView sealLevelText = (TextView) findViewById(R.id.sealLevel);
+        TextView sealPoints = (TextView) findViewById(R.id.dogepoints);
 
+        sealLevel = prefs.getInt("sealLevel", 0);
+        sealCost = prefs.getInt("sealCost", 0);
+        String sealCostString = Integer.toString((int)sealCost);
+
+        String sealLevelString = Integer.toString(sealLevel);
+        sealLevelText.setText("Level : " + sealLevelString);
+        sealPoints.setText(sealCostString);
+        //
+        //
 
         dogeHandler = new Handler();
         dogestartRepeatingTask();
@@ -73,6 +90,7 @@ public class UpgradeActivity extends MainActivity {
         super.onDestroy();
         stopRepeatingTask();
         dogestopRepeatingTask();
+
     }
 
     Runnable mStatusChecker = new Runnable() {
@@ -81,6 +99,7 @@ public class UpgradeActivity extends MainActivity {
             try{
                 Button pepeButton = (Button) findViewById(R.id.pepeLevelButton);
                 Button dogeButton = (Button) findViewById(R.id.dogeLevelButton);
+                Button sealButton = (Button) findViewById(R.id.sealLevelButton);
 
                 SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
                 SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
@@ -164,10 +183,12 @@ public class UpgradeActivity extends MainActivity {
 
     void dogestartRepeatingTask(){
         dogeStatusChecker.run();
+        sealStatusChecker.run();
     }
 
     void dogestopRepeatingTask(){
         dogeHandler.removeCallbacks(dogeStatusChecker);
+
 
     }
 
@@ -196,4 +217,54 @@ public class UpgradeActivity extends MainActivity {
         editor.apply();
 
     }
+
+
+
+    Runnable sealStatusChecker = new Runnable() {
+        @Override
+        public void run() {
+            SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+
+            try {
+                AmountOfPoints = AmountOfPoints + (sealLevel * (sealLevel * 1.1));
+                editor.putInt("sealLevel", sealLevel);
+                editor.apply();
+                TextView punten = (TextView) findViewById(R.id.punten);
+                String AmountOfPoint = Integer.toString((int) AmountOfPoints);
+                punten.setText("Amount of points : " + AmountOfPoint);
+            } finally {
+                dogeHandler.postDelayed(dogeStatusChecker, 1000);
+            }
+        }
+    };
+
+
+
+
+    public void sealLevelUp(View view){
+        AmountOfPoints = AmountOfPoints - sealCost;
+        sealLevel = sealLevel + 1;
+        sealCost = 10000 * (sealLevel * 2.1);
+
+        TextView sealpoints = (TextView) findViewById(R.id.sealpoints);
+        TextView punten = (TextView)findViewById(R.id.punten);
+        TextView sealLevelText = (TextView) findViewById(R.id.sealLevel);
+
+        String AmountOfPoint = Integer.toString((int)AmountOfPoints);
+        String sealCostString = Integer.toString((int)sealCost);
+        String sealLevelString = Integer.toString(sealLevel);
+
+        sealpoints.setText(sealCostString);
+        punten.setText("Amount of points : " + AmountOfPoint);
+        sealLevelText.setText("Level : " + sealLevelString);
+
+        int sealCostInteger = (int)(sealCost + 0.5d);
+
+        SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+        editor.putInt("sealLevel", dogeLevel);
+        editor.putInt("sealCost", sealCostInteger);
+        editor.apply();
+
+    }
+
 }
