@@ -24,13 +24,13 @@ public class MainActivity extends AppCompatActivity {
     private int AmountOfPoints = 0;
     private int pepeLevel = 1;
     private boolean Countdown;
+    private int dogeAmountOfPoints = 0;
 
-    private int dogeInterval = 5000;
     private Handler dogeHandler;
 
-    private int sealInterval = 5000;
+    private Handler gameSave;
+    
     private Handler sealHandler;
-
 
     public static final String MY_PREFS_NAME = "FileName";
 
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(activity_main);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         ImageButton pepe = (ImageButton) findViewById(R.id.pepe);
-        TextView punten = (TextView)findViewById(R.id.ppc);
+        TextView punten = (TextView)findViewById(R.id.punten);
 
         pepe.setBackgroundColor(Color.RED);
         myMusic = MediaPlayer.create(this, R.raw.giveallup);
@@ -55,14 +55,21 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         AmountOfPoints = prefs.getInt("Points" , 0);
         pepeLevel = prefs.getInt("pepeLevel" , 1);
+
         punten.setText("Amount of points : " + AmountOfPoints);
 
 
+        String AmountOfPoint = Integer.toString(AmountOfPoints);
+
+        punten.setText(AmountOfPoint);
         sealHandler = new Handler();
         sealstartRepeatingTask();
 
         dogeHandler = new Handler();
         dogestartRepeatingTask();
+
+        gameSave = new Handler();
+        saveGameRepeatingTaskStart();
     }
 
     @Override
@@ -70,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         sealstopRepeatingTask();
         dogestopRepeatingTask();
+        saveGameRepeatingTaskStop();
     }
 
 
@@ -80,12 +88,13 @@ public class MainActivity extends AppCompatActivity {
 
             try{
                 int dogePoints = prefs.getInt("dogePoints", 0);
-                int dogeAmountOfPoints = (AmountOfPoints);
+                dogeAmountOfPoints = AmountOfPoints;
                 AmountOfPoints = AmountOfPoints + dogePoints;
 
                 String points = "Amount of points: ";
                 TextView punten = (TextView)findViewById(R.id.punten);
                 String dogeAmountOfPoint = Integer.toString(dogeAmountOfPoints);
+                punten.setText("Amount of points: " + dogeAmountOfPoint);
                 punten.setText(points + dogeAmountOfPoint);
             }
 
@@ -95,8 +104,27 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    Runnable saveGame = new Runnable() {
+        @Override
+        public void run() {
+            try{
+                SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+                editor.putInt("Points", AmountOfPoints);
+                editor.apply();
+            } finally {
+                gameSave.postDelayed(saveGame, 10000);
+            }
+        }
+    };
 
 
+    void saveGameRepeatingTaskStart(){
+        saveGame.run();
+    }
+
+    void saveGameRepeatingTaskStop(){
+        gameSave.removeCallbacks(saveGame);
+    }
 
 
     void dogestartRepeatingTask(){
@@ -159,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
         pepe.setImageResource(R.drawable.pepe2);
 
         String AmountOfPoint = Integer.toString(AmountOfPoints);
-        TextView punten = (TextView) findViewById(R.id.ppc);
+        TextView punten = (TextView) findViewById(R.id.punten);
         punten.setText("Amount of points:  " + AmountOfPoint);
         pepe.setBackgroundColor(Color.GREEN);
         pepe.setSoundEffectsEnabled(false);
@@ -211,11 +239,4 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         return true;
     }
-
-    public void SaveGame(View view) {
-        SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-        editor.putInt("Points", AmountOfPoints);
-        editor.apply();
-    }
-
 }

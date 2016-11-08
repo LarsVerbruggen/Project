@@ -1,14 +1,10 @@
 package hfad.com.project;
 
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.os.CountDownTimer;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class UpgradeActivity extends MainActivity {
@@ -23,7 +19,6 @@ public class UpgradeActivity extends MainActivity {
 
     private int dogeInterval = 5000;
     private Handler dogeHandler;
-
 
     private int mInterval = 5000;
     private Handler mHandler;
@@ -113,7 +108,7 @@ public class UpgradeActivity extends MainActivity {
                     pepeButton.setEnabled(true);
                 }
 
-                if(AmountOfPoints < dogeCost){
+                if(AmountOfPoints <= dogeCost){
                     dogeButton.setEnabled(false);
                 }else{
                     dogeButton.setEnabled(true);
@@ -125,12 +120,6 @@ public class UpgradeActivity extends MainActivity {
                     sealButton.setEnabled(true);
                 }
 
-           //     if(AmountOfPoints <= dogeCost){
-           //         dogeButton.setEnabled(false);
-           //     }else{
-           //         dogeButton.setEnabled(true);
-           //     }
-
                 int PointInteger = (int)(AmountOfPoints + 0.5d);
                 editor.putInt("Points", PointInteger);
                 editor.apply();
@@ -141,46 +130,38 @@ public class UpgradeActivity extends MainActivity {
         }
     };
 
-
-
     void startRepeatingTask(){
         mStatusChecker.run();
     }
 
     void stopRepeatingTask(){
         mHandler.removeCallbacks(mStatusChecker);
-
     }
 
-    public void pepeLevelUp(View view){
+    public void pepeLevelUp(View view) {
         AmountOfPoints = AmountOfPoints - pepeCost;
         pepeLevel = pepeLevel + 1;
         pepeCost = 100 * (pepeLevel * 1.3);
 
         TextView pepepoints = (TextView) findViewById(R.id.pepepoints);
-        TextView punten = (TextView)findViewById(R.id.punten);
+        TextView punten = (TextView) findViewById(R.id.punten);
         TextView pepeLevelText = (TextView) findViewById(R.id.pepeLevel);
 
-        String AmountOfPoint = Integer.toString((int)AmountOfPoints);
-        String pepeCostString = Integer.toString((int)pepeCost);
+        String AmountOfPoint = Integer.toString((int) AmountOfPoints);
+        String pepeCostString = Integer.toString((int) pepeCost);
         String pepeLevelString = Integer.toString(pepeLevel);
 
         pepeLevelText.setText("Level : " + pepeLevelString);
         pepepoints.setText(pepeCostString);
         punten.setText(AmountOfPoint);
 
-
-        int pepeCostInteger = (int)(pepeCost + 0.5d);
-
+        int pepeCostInteger = (int) (pepeCost + 0.5d);
 
         SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
         editor.putInt("pepeLevel", pepeLevel);
         editor.putInt("pepeCost", pepeCostInteger);
         editor.apply();
-
     }
-
-
 
     Runnable dogeStatusChecker = new Runnable() {
         @Override
@@ -195,18 +176,12 @@ public class UpgradeActivity extends MainActivity {
                 editor.apply();
                 TextView punten = (TextView)findViewById(R.id.punten);
                 String AmountOfPoint = Integer.toString((int)AmountOfPoints);
-                punten.setText(AmountOfPoint);
-            }
-
-            finally {
+                punten.setText("Amount of points : " + AmountOfPoint);
+            } finally {
                 dogeHandler.postDelayed(dogeStatusChecker, 1000);
             }
         }
     };
-
-
-
-
 
     void dogestartRepeatingTask(){
         dogeStatusChecker.run();
@@ -218,10 +193,9 @@ public class UpgradeActivity extends MainActivity {
     }
 
     public void dogeLevelUp(View view){
+        AmountOfPoints = AmountOfPoints - dogeCost;
         dogeLevel = dogeLevel + 1;
         dogeCost = 1000 * (dogeLevel * 2.1);
-        AmountOfPoints = AmountOfPoints - dogeCost;
-
 
         TextView dogePoints = (TextView) findViewById(R.id.dogepoints);
         TextView punten = (TextView)findViewById(R.id.punten);
@@ -231,6 +205,8 @@ public class UpgradeActivity extends MainActivity {
         String dogeCostString = Integer.toString((int)dogeCost);
         String dogeLevelString = Integer.toString(dogeLevel);
 
+        dogePoints.setText(dogeCostString);
+        punten.setText("Amount of points : " + AmountOfPoint);
         dogePoints.setText(dogeCostString);
         punten.setText(AmountOfPoint);
         dogeLevelText.setText("Level : " + dogeLevelString);
@@ -243,7 +219,6 @@ public class UpgradeActivity extends MainActivity {
         editor.apply();
 
     }
-
 
     Runnable sealStatusChecker = new Runnable() {
         @Override
@@ -266,7 +241,6 @@ public class UpgradeActivity extends MainActivity {
             }
         }
     };
-
     void sealstartRepeatingTask(){
         sealStatusChecker.run();
     }
@@ -275,7 +249,6 @@ public class UpgradeActivity extends MainActivity {
         sealHandler.removeCallbacks(sealStatusChecker);
 
     }
-
 
     public void sealLevelUp(View view){
         sealLevel = sealLevel + 1;
@@ -300,9 +273,5 @@ public class UpgradeActivity extends MainActivity {
         editor.putInt("sealLevel", sealLevel);
         editor.putInt("sealCost", sealCostInteger);
         editor.apply();
-
     }
-
-
-
 }
