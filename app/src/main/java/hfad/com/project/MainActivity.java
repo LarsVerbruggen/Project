@@ -7,7 +7,6 @@ import android.content.Intent;
 
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -24,13 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private int AmountOfPoints = 0;
     private int pepeLevel = 1;
     private boolean Countdown;
-    private int dogeAmountOfPoints = 0;
 
-    private Handler dogeHandler;
-
-    private Handler gameSave;
-    
-    private Handler sealHandler;
 
     public static final String MY_PREFS_NAME = "FileName";
 
@@ -47,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(activity_main);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         ImageButton pepe = (ImageButton) findViewById(R.id.pepe);
-        TextView punten = (TextView)findViewById(R.id.punten);
+        TextView punten = (TextView)findViewById(R.id.ppc);
 
         pepe.setBackgroundColor(Color.RED);
         myMusic = MediaPlayer.create(this, R.raw.giveallup);
@@ -55,115 +48,8 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         AmountOfPoints = prefs.getInt("Points" , 0);
         pepeLevel = prefs.getInt("pepeLevel" , 1);
+        punten.setText("Amount of points:  " + AmountOfPoints);
 
-        punten.setText("Amount of points : " + AmountOfPoints);
-
-
-        String AmountOfPoint = Integer.toString(AmountOfPoints);
-
-        punten.setText(AmountOfPoint);
-        sealHandler = new Handler();
-        sealstartRepeatingTask();
-
-        dogeHandler = new Handler();
-        dogestartRepeatingTask();
-
-        gameSave = new Handler();
-        saveGameRepeatingTaskStart();
-    }
-
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-        sealstopRepeatingTask();
-        dogestopRepeatingTask();
-        saveGameRepeatingTaskStop();
-    }
-
-
-    Runnable dogeStatusChecker = new Runnable() {
-        @Override
-        public void run() {
-            SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-
-            try{
-                int dogePoints = prefs.getInt("dogePoints", 0);
-                dogeAmountOfPoints = AmountOfPoints;
-                AmountOfPoints = AmountOfPoints + dogePoints;
-
-                String points = "Amount of points: ";
-                TextView punten = (TextView)findViewById(R.id.punten);
-                String dogeAmountOfPoint = Integer.toString(dogeAmountOfPoints);
-                punten.setText("Amount of points: " + dogeAmountOfPoint);
-                punten.setText(points + dogeAmountOfPoint);
-            }
-
-            finally {
-                dogeHandler.postDelayed(dogeStatusChecker, 1000);
-            }
-        }
-    };
-
-    Runnable saveGame = new Runnable() {
-        @Override
-        public void run() {
-            try{
-                SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-                editor.putInt("Points", AmountOfPoints);
-                editor.apply();
-            } finally {
-                gameSave.postDelayed(saveGame, 10000);
-            }
-        }
-    };
-
-
-    void saveGameRepeatingTaskStart(){
-        saveGame.run();
-    }
-
-    void saveGameRepeatingTaskStop(){
-        gameSave.removeCallbacks(saveGame);
-    }
-
-
-    void dogestartRepeatingTask(){
-        dogeStatusChecker.run();
-    }
-
-    void dogestopRepeatingTask(){
-        dogeHandler.removeCallbacks(dogeStatusChecker);
-
-    }
-
-    Runnable sealStatusChecker = new Runnable() {
-        @Override
-        public void run() {
-            SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-
-            try{
-                int sealPoints = prefs.getInt("sealPoints", 0);
-                int sealAmountOfPoints = (AmountOfPoints);
-                AmountOfPoints = AmountOfPoints + sealPoints;
-
-                String points = "Amount of points: ";
-                TextView punten = (TextView)findViewById(R.id.punten);
-                String sealAmountOfPoint = Integer.toString(sealAmountOfPoints);
-                punten.setText(points + sealAmountOfPoint);
-            }
-
-            finally {
-                sealHandler.postDelayed(sealStatusChecker, 1000);
-            }
-        }
-    };
-
-    void sealstartRepeatingTask(){
-        sealStatusChecker.run();
-    }
-
-    void sealstopRepeatingTask(){
-        sealHandler.removeCallbacks(sealStatusChecker);
 
     }
 
@@ -187,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         pepe.setImageResource(R.drawable.pepe2);
 
         String AmountOfPoint = Integer.toString(AmountOfPoints);
-        TextView punten = (TextView) findViewById(R.id.punten);
+        TextView punten = (TextView) findViewById(R.id.ppc);
         punten.setText("Amount of points:  " + AmountOfPoint);
         pepe.setBackgroundColor(Color.GREEN);
         pepe.setSoundEffectsEnabled(false);
@@ -239,4 +125,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         return true;
     }
+
+    public void SaveGame(View view) {
+        SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+        editor.putInt("Points", AmountOfPoints);
+        editor.apply();
+    }
+
 }
