@@ -156,9 +156,7 @@ public class UpgradeActivity extends MainActivity {
                 TextView punten = (TextView)findViewById(R.id.punten);
                 String AmountOfPoint = Integer.toString((int)AmountOfPoints);
                 punten.setText("Amount of points : " + AmountOfPoint);
-            }
-
-            finally {
+            } finally {
                 dogeHandler.postDelayed(dogeStatusChecker, 1000);
             }
         }
